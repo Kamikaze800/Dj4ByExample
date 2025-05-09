@@ -60,7 +60,7 @@ def post_detail(request, year, month, day, slug):
         publish__month=month,
         publish__day=day,
     )
-    comments = Post.comments.filter(active=True)
+    comments = post.comments.filter(active=True)
     form = CommentForm()
     return render(
         request,
@@ -71,7 +71,7 @@ def post_detail(request, year, month, day, slug):
 
 @require_POST
 def post_comment(request, post_id):
-    post = get_object_or_404(Post, id=post_id, status="PUBLISHED")
+    post = get_object_or_404(Post, id=post_id)
     comment = None
     form = CommentForm(data=request.POST)
     if form.is_valid():
